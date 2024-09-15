@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冷蔵庫管理アプリ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+            padding: 10px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>冷蔵庫管理アプリ</h1>
+
+    <!-- アイテム追加フォーム -->
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="名称" required>
+        <input type="number" name="quantity" placeholder="数量" required>
+        <input type="date" name="expiration" required>
+        <button type="submit">追加</button>
+    </form>
+
+    <!-- 冷蔵庫のアイテム一覧 -->
+    <table>
+        <tr>
+            <th>名称</th>
+            <th>数量</th>
+            <th>賞味期限</th>
+            <th>アクション</th>
+        </tr>
+        {% for item in inventory %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.expiration }}</td>
+            <td><a href="/delete/{{ loop.index0 }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
